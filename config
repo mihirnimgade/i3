@@ -35,6 +35,9 @@ exec --no-startup-id nm-applet
 # set background image
 exec --no-startup-id /usr/bin/feh --bg-scale ~/backgrounds/death_and_life_klimt.jpg
 
+# turn off screen saver
+exec --no-startup-id xset s off -dpms
+
 # workspace swapping
 bindsym Mod4+Shift+s exec ~/.config/i3/scripts/swap.sh
 
