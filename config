@@ -287,6 +287,15 @@ bindsym Mod4+f exec $HOME/.config/i3/scripts/i3-dtags.sh
 # Show tags, and move the current window to the one selected using dmenu.
 bindsym Mod4+Shift+f exec $HOME/.config/i3/scripts/i3-dtags-moveto.sh
 
+# <---- workspace switching ---->
+
+bindsym Mod4+x workspace back_and_forth
+
+# <---- changing display brightness ---->
+
+bindsym XF86MonBrightnessUp exec brightnessctl -d intel_backlight s 10%+
+bindsym XF86MonBrightnessDown exec brightnessctl -d intel_backlight s 10%-
+
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a
 # keysym-based config which used their favorite modifier (alt or windows)
