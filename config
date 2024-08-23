@@ -258,6 +258,8 @@ gaps outer 5px
 
 # exec_always --no-startup-id ~/.config/polybar/launch.sh
 
+exec --no-startup-id picom -b
+
 # moving workspaces between monitors
 bindsym Mod4+Ctrl+greater move workspace to output right
 bindsym Mod4+Ctrl+less move workspace to output left
