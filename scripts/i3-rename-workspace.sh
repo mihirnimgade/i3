@@ -35,20 +35,11 @@ for ((i=0; i<${#workspace_allocations[@]}; i++)); do
         continue
     fi
 
-    # if we've reached the end of the array we can just add one to the last entry
-    if [ $i -eq $((${#workspace_allocations[@]} - 1)) ]; then
-        ALLOCATION=$((cur_entry + 1))
-        break
-    fi
-
-    # we haven't reached the end of the array so there must be a next item in the array
-    next_entry=${workspace_allocations[i+1]#10}
-
-    # if the difference between the current entry and the next entry is bigger
-    # than one, we can allocate a new workspace right after the current entry
-    # if not, we continue through the array
-    if [ $((next_entry - cur_entry)) -gt 1 ]; then
-        ALLOCATION=$((cur_entry + 1))
+    # if the current allocation is equal to the current value, then increment the allocation
+    if [ "${workspace_allocations[i]#10}" -eq $ALLOCATION ]; then
+        ALLOCATION=$((ALLOCATION+1))
+    # if not, then it is a valid allocation to make
+    else
         break
     fi
 done
