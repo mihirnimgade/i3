@@ -5,15 +5,18 @@ I3INPUT=$(command -v i3-input) || exit 1
 I3MSG=$(command -v i3-msg) || exit 1
 JQ=$(command -v jq) || exit 2
 
-# CURWORKSPACE=$($I3MSG -t get_workspaces | $JQ '.[] | select(.focused==true).name' | cut -d"\"" -f2 | awk '{ print $1 }')
-CURALLOCATION=$($I3MSG -t get_workspaces | $JQ '.[] | select(.focused==true).num' | cut -d"\"" -f2 | awk '{ print $1 }')
+CURWORKSPACE=$($I3MSG -t get_workspaces | $JQ '.[] | select(.focused==true).name' | cut -d"\"" -f2)
+# CURALLOCATION=$($I3MSG -t get_workspaces | $JQ '.[] | select(.focused==true).num' | cut -d"\"" -f2 | awk '{ print $1 }')
+
+# rename current workspace to something temporary so we can use its allocated number
+$I3MSG "rename workspace \"${CURWORKSPACE}\" to temp"
 
 # if the workspace is already allocated a number use that allocation
-if [ "${CURALLOCATION}" -ne -1 ]; then
-    STR="rename workspace to \"${CURALLOCATION}: %s\""
-    $I3INPUT -F "$STR" -P "New name (using workspace ${CURALLOCATION}): "
-    exit 0
-fi
+# if [ "${CURALLOCATION}" -ne -1 ]; then
+#     STR="rename workspace to \"${CURALLOCATION}: %s\""
+#     $I3INPUT -F "$STR" -P "New name (using workspace ${CURALLOCATION}): "
+#     exit 0
+# fi
 
 # if we've reached here, we need to find an allocation for the workspace we're renaming...
 ALLOCATION=1
